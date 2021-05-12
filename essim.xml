@@ -1,0 +1,399 @@
+<mujoco model="essim">
+
+    <compiler inertiafromgeom="true" coordinate="local" angle="degree"/>
+    <default>
+        <site type="sphere" rgba=".9 .9 .9 1" size="0.0001"/>
+        <geom rgba=".9 .7 .1 1" size="0.01" friction="1 0.005 0.001" margin="0.0005" condim="6" solref=".01 1" solimp=".99 .99 .01"/>
+        <joint limited="true" damping="0.05" armature=".001" margin="0.01" frictionloss="0.001"/>
+    </default>
+    <option timestep="0.01"/>
+    <size njmax="1500" nconmax="500" nstack="5000000"/>
+
+    <worldbody>
+
+      <light directional="true" cutoff="4" exponent="20" diffuse="1 1 1" specular="0 0 0" pos="0 0 0" dir="-.5 -.3 -2.5 "/>
+      <geom name="ground" type="plane" pos="0 0 -0.050" size="1 1 1" rgba=" .25 .26 .25 1"/>
+
+      <site name="left_spool_origin" pos="-0.042 0.0072 0"/>
+      <site name="right_spool_origin" pos="-0.055 0.0072 0"/>
+
+      <site name="l_right_spool_origin" pos="0.055 0.0072 0"/>
+      <site name="l_left_spool_origin" pos="0.042 0.0072 0"/>
+      <body pos="0 0.030 0" >
+        <geom type="box" size="0.10 0.03 0.05"/>
+      </body>
+
+      <!-- ======= Object to be manipulated ======= -->
+      <body name="item" pos="0.012 -0.08 0" >
+        <geom type="cylinder" size="0.022 0.05" mass="0.0300" rgba=" .25 .26 .9 1"  margin="0.0005" />
+        <joint type="free" damping="0" armature="0" limited="false"/>
+      </body>
+
+      <body name="reference" pos="-0.015 -0.07 0" >
+
+        <!-- <geom type="cylinder" size="0.022 0.05" rgba=" 1 0 0 0.2" conaffinity="0" contype="0"/> -->
+
+      </body>
+
+      <!-- ======= Right Finger ======= -->
+      <body pos="-0.050 0 0" >
+        <geom type="box"  pos="0 -0.0030 0.007025 " size="0.01 0.003 0.003825" rgba=".3 .9 .3 1"/>
+        <geom type="box"  pos="0.003 -0.009 0.007025  " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+        <geom type="box"  pos="0.003 -0.025 0.007025  " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+        <geom type="box"  pos="0 -0.031 0.007025  " size="0.004 0.003 0.003825" rgba=".3 .9 .3 1"/>
+        <geom type="box"  pos="-0.007 -0.031 0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+        <geom type="box"  pos="-0.007 -0.025 0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+        <geom type="box"  pos="0.009 -0.017 0.007025  " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+        <geom type="box"  pos="-0.003 -0.017 0.007025  " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+
+
+        <geom type="box"  pos="0 -0.0030 -0.007025" size="0.01 0.003 0.003825" rgba=".3 .9 .3 1"/>
+        <geom type="box"  pos="0.003 -0.009 -0.007025 " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+        <geom type="box"  pos="0.003 -0.025 -0.007025 " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+        <geom type="box"  pos="0 -0.031 -0.007025  " size="0.004 0.003 0.003825" rgba=".3 .9 .3 1"/>
+        <geom type="box"  pos="-0.007 -0.031 -0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+        <geom type="box"  pos="-0.007 -0.025 -0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+        <geom type="box"  pos="-0.007 -0.0090 -0.007025 " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+        <geom type="box"  pos="-0.007 -0.0090 0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+        <geom type="box"  pos="0.009 -0.017 -0.007025 " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+        <geom type="box"  pos="-0.003 -0.017 -0.007025 " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+
+
+        <geom type="box"  pos="0.0091 -0.0030 0 " size="0.0009 0.003 0.0032" rgba=".3 .9 .3 1"/>
+        <geom type="box"  pos="0.0072 -0.0030 0.0021 " size="0.001 0.003 0.0011" rgba=".3 .9 .3 1"/>
+        <geom type="box"  pos="0.0072 -0.0030 -0.0021 " size="0.001 0.003 0.0011" rgba=".3 .9 .3 1"/>
+
+
+          <!-- ======= Tendon spool ======= -->
+        <geom name ="spool_left_1" type="cylinder"  pos="0.0082 -0.0072 0 " size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+        <site name="l_s1" pos="0.0074 -0.0072 0 " />
+
+        <geom name ="spool_right_1" type="cylinder"  pos="-0.007 -0.0072 0  " size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+        <geom name ="spool_right_2" type="cylinder"  pos="-0.007 -0.026 0" size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+        <site name="r_s1" pos="-0.0080 -0.0072 0 " />
+        <site name="r_s2" pos="-0.0080 -0.026 0 " />
+
+
+
+
+        <body pos="0 -0.035 0" euler="0 0 0">
+
+          <geom type="box"  pos="0 -0.0030 0.007025 " size="0.01 0.003 0.003825" rgba=".3 .9 .3 1"/>
+          <geom type="box"  pos="0.003 -0.009 0.007025  " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+          <geom type="box"  pos="0.003 -0.025 0.007025  " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+          <geom type="box"  pos="0 -0.031 0.007025  " size="0.004 0.003 0.003825" rgba=".3 .9 .3 1"/>
+          <geom type="box"  pos="-0.007 -0.031 0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+          <geom type="box"  pos="-0.007 -0.025 0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+          <geom type="box"  pos="0.009 -0.017 0.007025  " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+          <geom type="box"  pos="-0.003 -0.017 0.007025  " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+
+
+          <geom type="box"  pos="0 -0.0030 -0.007025" size="0.01 0.003 0.003825" rgba=".3 .9 .3 1"/>
+          <geom type="box"  pos="0.003 -0.009 -0.007025 " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+          <geom type="box"  pos="0.003 -0.025 -0.007025 " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+          <geom type="box"  pos="0 -0.031 -0.007025  " size="0.004 0.003 0.003825" rgba=".3 .9 .3 1"/>
+          <geom type="box"  pos="-0.007 -0.031 -0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+          <geom type="box"  pos="-0.007 -0.025 -0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+          <geom type="box"  pos="-0.007 -0.0090 -0.007025 " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+          <geom type="box"  pos="-0.007 -0.0090 0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+          <geom type="box"  pos="0.009 -0.017 -0.007025 " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+          <geom type="box"  pos="-0.003 -0.017 -0.007025 " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+
+
+          <geom type="box"  pos="0.0091 -0.0030 0 " size="0.0009 0.003 0.0032" rgba=".3 .9 .3 1"/>
+          <geom type="box"  pos="0.0072 -0.0030 0.0021 " size="0.001 0.003 0.0011" rgba=".3 .9 .3 1"/>
+          <geom type="box"  pos="0.0072 -0.0030 -0.0021 " size="0.001 0.003 0.0011" rgba=".3 .9 .3 1"/>
+
+
+            <!-- ======= Tendon spool ======= -->
+          <geom name ="spool_left_2" type="cylinder"  pos="0.0082 -0.0072 0 " size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+          <site name="l_s2" pos="0.0074 -0.0072 0 " />
+          <geom name ="spool_right_3" type="cylinder"  pos="-0.007 -0.0072 0  " size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+          <geom name ="spool_right_4" type="cylinder"  pos="-0.007 -0.026 0" size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+          <site name="r_s3" pos="-0.0080 -0.0072 0 " />
+          <site name="r_s4" pos="-0.0080 -0.026 0 " />
+
+
+
+          <joint type="hinge" name= "r_joint1" pos="0.003 0.0175 0" axis="0 0 1" limited="true" range="0 90" />
+          <!-- ======= bearing and connection link for visualization ======= -->
+          <!-- <geom type="cylinder"  pos="0.003 0.0175 0" size="0.003 0.01085 " rgba=".2 .2 .2 1"/>
+          <geom type="cylinder" fromto=" 0.003 -0.0175 0 0.003 0.01750 0" size="0.003" rgba=".2 .2 .2 1"/> -->
+
+
+
+
+          <body pos="0 -0.035 0">
+
+            <geom type="box"  pos="0 -0.0070 0.007025 " size="0.01 0.007 0.003825" rgba=".3 .9 .3 1"/>
+            <geom type="box"  pos="0 -0.0070 -0.007025 " size="0.01 0.007 0.003825" rgba=".3 .9 .3 1"/>
+            <geom type="cylinder"  pos="0 -0.0140 0 "  size="0.010 0.01085" rgba=".3 .9 .3 1"/>
+
+
+            <site name="sensor4" pos="0.010 -0.0120 0" euler="0 90 0" />
+            <site name="sensor5" pos="0.010 -0.0080 0" euler="0 90 0" />
+            <site name="sensor6" pos="0.010 -0.0040 0" euler="0 90 0" />
+
+
+
+
+
+
+              <!-- ======= Tendon spool ======= -->
+            <geom name ="spool_left_3" type="cylinder"  pos="0.0082 -0.0050 0 " size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+            <site name="l_s3" pos="0.0074 -0.0050 0 " />
+            <geom type="cylinder"  pos="-0.0070 -0.0050 0  " size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+
+            <geom name ="spool_right_5" type="cylinder"  pos="-0.007 -0.0050 0" size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+            <site name="r_s5" pos="-0.0078 -0.0050 0" />
+
+            <joint type="hinge" name= "r_joint2" pos="0.003 0.0175 0" axis="0 0 1" limited="true" range="0 90" />
+            <!-- <geom type="cylinder"  pos="0.003 0.0175 0" size="0.003 0.01085 " rgba=".2 .2 .2 1"/>
+            <geom type="cylinder" fromto=" 0.003 -0.0100 0 0.003 0.01750 0" size="0.003" rgba=".2 .2 .2 1"/> -->
+
+
+
+            </body>
+
+        </body>
+</body>
+
+<!-- ======= Left Finger ======= -->
+<body pos="0.050 0 0" euler="0 180 0" >
+  <geom type="box"  pos="0 -0.0030 0.007025 " size="0.01 0.003 0.003825" rgba=".3 .9 .3 1"/>
+  <geom type="box"  pos="0.003 -0.009 0.007025  " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+  <geom type="box"  pos="0.003 -0.025 0.007025  " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+  <geom type="box"  pos="0 -0.031 0.007025  " size="0.004 0.003 0.003825" rgba=".3 .9 .3 1"/>
+  <geom type="box"  pos="-0.007 -0.031 0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+  <geom type="box"  pos="-0.007 -0.025 0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+  <geom type="box"  pos="0.009 -0.017 0.007025  " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+  <geom type="box"  pos="-0.003 -0.017 0.007025  " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+
+
+  <geom type="box"  pos="0 -0.0030 -0.007025" size="0.01 0.003 0.003825" rgba=".3 .9 .3 1"/>
+  <geom type="box"  pos="0.003 -0.009 -0.007025 " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+  <geom type="box"  pos="0.003 -0.025 -0.007025 " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+  <geom type="box"  pos="0 -0.031 -0.007025  " size="0.004 0.003 0.003825" rgba=".3 .9 .3 1"/>
+  <geom type="box"  pos="-0.007 -0.031 -0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+  <geom type="box"  pos="-0.007 -0.025 -0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+  <geom type="box"  pos="-0.007 -0.0090 -0.007025 " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+  <geom type="box"  pos="-0.007 -0.0090 0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+  <geom type="box"  pos="0.009 -0.017 -0.007025 " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+  <geom type="box"  pos="-0.003 -0.017 -0.007025 " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+
+
+  <geom type="box"  pos="0.0091 -0.0030 0 " size="0.0009 0.003 0.0032" rgba=".3 .9 .3 1"/>
+  <geom type="box"  pos="0.0072 -0.0030 0.0021 " size="0.001 0.003 0.0011" rgba=".3 .9 .3 1"/>
+  <geom type="box"  pos="0.0072 -0.0030 -0.0021 " size="0.001 0.003 0.0011" rgba=".3 .9 .3 1"/>
+
+
+
+    <!-- ======= Tendon spool ======= -->
+  <geom name ="l_spool_left_1" type="cylinder"  pos="0.0082 -0.0072 0 " size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+  <site name="l_l_s1" pos="0.0074 -0.0072 0 " />
+
+  <geom name ="l_spool_right_1" type="cylinder"  pos="-0.007 -0.0072 0  " size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+  <geom name ="l_spool_right_2" type="cylinder"  pos="-0.007 -0.026 0" size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+  <site name="l_r_s1" pos="-0.0080 -0.0072 0 " />
+  <site name="l_r_s2" pos="-0.0080 -0.026 0 " />
+
+
+
+
+  <body pos="0 -0.0350 0">
+
+    <geom type="box"  pos="0 -0.0030 0.007025 " size="0.01 0.003 0.003825" rgba=".3 .9 .3 1"/>
+    <geom type="box"  pos="0.003 -0.009 0.007025  " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+    <geom type="box"  pos="0.003 -0.025 0.007025  " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+    <geom type="box"  pos="0 -0.031 0.007025  " size="0.004 0.003 0.003825" rgba=".3 .9 .3 1"/>
+    <geom type="box"  pos="-0.007 -0.031 0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+    <geom type="box"  pos="-0.007 -0.025 0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+    <geom type="box"  pos="0.009 -0.017 0.007025  " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+    <geom type="box"  pos="-0.003 -0.017 0.007025  " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+
+
+    <geom type="box"  pos="0 -0.0030 -0.007025" size="0.01 0.003 0.003825" rgba=".3 .9 .3 1"/>
+    <geom type="box"  pos="0.003 -0.009 -0.007025 " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+    <geom type="box"  pos="0.003 -0.025 -0.007025 " size="0.007 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+    <geom type="box"  pos="0 -0.031 -0.007025  " size="0.004 0.003 0.003825" rgba=".3 .9 .3 1"/>
+    <geom type="box"  pos="-0.007 -0.031 -0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+    <geom type="box"  pos="-0.007 -0.025 -0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+    <geom type="box"  pos="-0.007 -0.0090 -0.007025 " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+    <geom type="box"  pos="-0.007 -0.0090 0.007025  " size="0.003 0.003 0.003825" rgba=".3 .9 .3 1"/>
+
+
+    <geom type="box"  pos="0.009 -0.017 -0.007025 " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+    <geom type="box"  pos="-0.003 -0.017 -0.007025 " size="0.001 0.005 0.003825" rgba=".3 .9 .3 1"/>
+
+
+    <geom type="box"  pos="0.0091 -0.0030 0 " size="0.0009 0.003 0.0032" rgba=".3 .9 .3 1"/>
+    <geom type="box"  pos="0.0072 -0.0030 0.0021 " size="0.001 0.003 0.0011" rgba=".3 .9 .3 1"/>
+    <geom type="box"  pos="0.0072 -0.0030 -0.0021 " size="0.001 0.003 0.0011" rgba=".3 .9 .3 1"/>
+
+
+      <!-- ======= Tendon spool ======= -->
+    <geom name ="l_spool_left_2" type="cylinder"  pos="0.0082 -0.0072 0 " size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+    <site name="l_l_s2" pos="0.0074 -0.0072 0 " />
+    <geom name ="l_spool_right_3" type="cylinder"  pos="-0.007 -0.0072 0  " size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+    <geom name ="l_spool_right_4" type="cylinder"  pos="-0.007 -0.026 0" size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+    <site name="l_r_s3" pos="-0.0080 -0.0072 0 " />
+    <site name="l_r_s4" pos="-0.0080 -0.026 0 " />
+
+
+
+    <joint type="hinge" name= "l_r_joint1" pos="0.003 0.0175 0" axis="0 0 1" limited="true" range="0 90" />
+    <!-- ======= bearing and connection link for visualization ======= -->
+    <!-- <geom type="cylinder"  pos="0.003 0.0175 0" size="0.003 0.01085 " rgba=".2 .2 .2 1"/>
+    <geom type="cylinder" fromto=" 0.003 -0.0175 0 0.003 0.01750 0" size="0.003" rgba=".2 .2 .2 1"/> -->
+
+
+
+
+    <body pos="0 -0.035 0">
+
+      <geom type="box"  pos="0 -0.0070 0.007025 " size="0.01 0.007 0.003825" rgba=".3 .9 .3 1"/>
+      <geom type="box"  pos="0 -0.0070 -0.007025 " size="0.01 0.007 0.003825" rgba=".3 .9 .3 1"/>
+      <geom type="cylinder"  pos="0 -0.0140 0 "  size="0.010 0.01085" rgba=".3 .9 .3 1"/>
+
+
+      <body name="sensor1_pos"  pos="0.010 -0.0120 0" euler="0 90 0" >
+
+      </body>
+      <site name="sensor1" pos="0.010 -0.0120 0" euler="0 90 0" />
+      <site name="sensor2" pos="0.010 -0.0080 0" euler="0 90 0" />
+      <site name="sensor3" pos="0.010 -0.0040 0" euler="0 90 0" />
+
+        <!-- ======= Tendon spool ======= -->
+      <geom name ="l_spool_left_3" type="cylinder"  pos="0.0082 -0.0050 0 " size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+      <site name="l_l_s3" pos="0.0074 -0.0050 0 " />
+      <geom type="cylinder"  pos="-0.0070 -0.0050 0  " size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+
+
+
+      <geom name ="l_spool_right_5" type="cylinder"  pos="-0.007 -0.0050 0" size="0.001 0.0032 " rgba=".8 .2 .3 1"/>
+      <site name="l_r_s5" pos="-0.0078 -0.0050 0" />
+
+      <joint type="hinge"  name= "l_r_joint2" pos="0.003 0.0175 0" axis="0 0 1" limited="true" range="0 90"  />
+      <!-- <geom type="cylinder"  pos="0.003 0.0175 0" size="0.003 0.01085 " rgba=".2 .2 .2 1"/>
+      <geom type="cylinder" fromto=" 0.003 -0.0100 0 0.003 0.01750 0" size="0.003" rgba=".2 .2 .2 1"/> -->
+
+
+      </body>
+
+  </body>
+</body>
+
+</worldbody>
+
+<tendon>
+        <spatial name="tendon1" width="0.0002" rgba=".95 .3 .3 1" >
+              <site site="left_spool_origin"/>
+              <geom geom="spool_left_1" sidesite="l_s1"/>
+              <site site="l_s1"/>
+              <geom geom="spool_left_2" sidesite="l_s2"/>
+              <site site="l_s2"/>
+              <site site="l_s3"/>
+          </spatial>
+
+          <spatial name="tendon2" width="0.0002" rgba=".95 .3 .3 1" >
+                <site site="right_spool_origin"/>
+                <geom geom="spool_right_1" sidesite="r_s1"/>
+                <site site="r_s1"/>
+                <geom geom="spool_right_2" sidesite="r_s2"/>
+                <site site="r_s2"/>
+                <geom geom="spool_right_3" sidesite="r_s3"/>
+                <site site="r_s3"/>
+                <geom geom="spool_right_4" sidesite="r_s4"/>
+                <site site="r_s4"/>
+                <site site="r_s5"/>
+            </spatial>
+
+            <spatial name="l_tendon1" width="0.0002" rgba=".95 .3 .3 1" >
+                  <site site="l_left_spool_origin"/>
+                  <geom geom="l_spool_left_1" sidesite="l_l_s1"/>
+                  <site site="l_l_s1"/>
+                  <geom geom="l_spool_left_2" sidesite="l_l_s2"/>
+                  <site site="l_l_s2"/>
+                  <site site="l_l_s3"/>
+              </spatial>
+
+              <spatial name="l_tendon2" width="0.0002" rgba=".95 .3 .3 1" >
+                    <site site="l_right_spool_origin"/>
+                    <geom geom="l_spool_right_1" sidesite="l_r_s1"/>
+                    <site site="l_r_s1"/>
+                    <geom geom="l_spool_right_2" sidesite="l_r_s2"/>
+                    <site site="l_r_s2"/>
+                    <geom geom="l_spool_right_3" sidesite="l_r_s3"/>
+                    <site site="l_r_s3"/>
+                    <geom geom="l_spool_right_4" sidesite="l_r_s4"/>
+                    <site site="l_r_s4"/>
+                    <site site="l_r_s5"/>
+                </spatial>
+
+      </tendon>
+
+
+      <actuator>
+        <motor name="Right" tendon="tendon1" ctrllimited="true" ctrlrange="-1 0" gear="8"/>
+        <motor name="Right2" tendon="tendon2" ctrllimited="true" ctrlrange="-1 0" gear="8"/>
+        <motor name="Left" tendon="l_tendon1" ctrllimited="true" ctrlrange="-1 0" gear="8"/>
+        <motor name="left2" tendon="l_tendon2" ctrllimited="true" ctrlrange="-1 0" gear="8"/>
+
+      </actuator>
+
+      <sensor>
+        <rangefinder name="Left" site="sensor1" />
+        <rangefinder name="Left2" site="sensor2" />
+        <rangefinder name="Left3" site="sensor3" />
+        <rangefinder name="Right" site="sensor4" />
+        <rangefinder name="Right1" site="sensor5" />
+        <rangefinder name="Right3" site="sensor6" />
+
+
+
+
+      </sensor>
+
+      <keyframe>
+
+        <key time="0" qpos='0.012566 -0.0605091 -7.64849e-05 0.999888 -0.000885256 -0.000537436 -0.0149548 0.39768 0.288012 0.0905712 0.102736'/>
+
+      </keyframe>
+
+
+
+</mujoco>
